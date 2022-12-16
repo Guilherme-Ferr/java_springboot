@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.vestcasa.converters.NumberConverter;
-import br.com.vestcasa.exceptions.UnsupportedMathOperationException;
+import br.com.vestcasa.exceptions.ResourceNotFoundException;
 import br.com.vestcasa.math.SimpleMath;
 
 @RestController
@@ -19,7 +19,7 @@ public class MathController {
 		) throws Exception {
 		
 		if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-			throw new UnsupportedMathOperationException("Please set a numeric value!");
+			throw new ResourceNotFoundException("Please set a numeric value!");
 		}
 		
 		return math.sum(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
@@ -32,7 +32,7 @@ public class MathController {
 		) throws Exception {
 		
 		if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-			throw new UnsupportedMathOperationException("Please set a numeric value!");
+			throw new ResourceNotFoundException("Please set a numeric value!");
 		}
 		
 		return math.sub(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
@@ -45,7 +45,7 @@ public class MathController {
 		) throws Exception {
 		
 		if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-			throw new UnsupportedMathOperationException("Please set a numeric value!");
+			throw new ResourceNotFoundException("Please set a numeric value!");
 		}
 		
 		return math.multi(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
@@ -58,7 +58,7 @@ public class MathController {
 		) throws Exception {
 		
 		if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-			throw new UnsupportedMathOperationException("Please set a numeric value!");
+			throw new ResourceNotFoundException("Please set a numeric value!");
 		}
 		
 		return math.division(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
@@ -71,7 +71,7 @@ public class MathController {
 		) throws Exception {
 		
 		if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-			throw new UnsupportedMathOperationException("Please set a numeric value!");
+			throw new ResourceNotFoundException("Please set a numeric value!");
 		}
 		
 		return math.mean(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
@@ -83,7 +83,7 @@ public class MathController {
 		) throws Exception {
 		
 		if(!NumberConverter.isNumeric(number)) {
-			throw new UnsupportedMathOperationException("Please set a numeric value!");
+			throw new ResourceNotFoundException("Please set a numeric value!");
 		}
 		
 		return math.squareRoot(NumberConverter.convertToDouble(number));
