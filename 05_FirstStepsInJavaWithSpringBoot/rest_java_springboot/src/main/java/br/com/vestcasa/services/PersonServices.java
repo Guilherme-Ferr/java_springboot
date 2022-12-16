@@ -29,19 +29,19 @@ public class PersonServices {
 
 	public Person update(Person person) {
 		Person entity = repository.findById(person.getId())
-				.orElseThrow(() -> new ResourceNotFoundException("No recrds found for this ID"));
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 
-		return repository.save(person);
+		return repository.save(entity);
 	}
 
 	public void delete(Long id) {
 		Person entity = repository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("No recrds found for this ID"));
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
 		repository.delete(entity);
 	}
