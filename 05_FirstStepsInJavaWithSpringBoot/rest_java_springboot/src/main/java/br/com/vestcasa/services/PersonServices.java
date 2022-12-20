@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.vestcasa.data.vo.v1.PersonVO;
 import br.com.vestcasa.exceptions.ResourceNotFoundException;
+import br.com.vestcasa.mapper.DozerMapper;
+import br.com.vestcasa.models.Person;
 import br.com.vestcasa.repositories.PersonRepository;
 
 @Service
@@ -16,31 +18,33 @@ public class PersonServices {
 	PersonRepository repository;
 
 	public List<PersonVO> findAll() {
-		return repository.findAll();
+		return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
 	}
 
 	public PersonVO findById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No recrds found for this ID"));
+		Person entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No recrds found for this ID"));		
+		return DozerMapper.parseObject(entity, PersonVO.class);
 	}
 
 	public PersonVO create(PersonVO person) {
-		return repository.save(person);
+		Person entity = DozerMapper.parseObject(person, Person.class);				
+		return DozerMapper.parseObject(repository.save(entity), PersonVO.class);				
 	}
 
 	public PersonVO update(PersonVO person) {
-		PersonVO entity = repository.findById(person.getId())
+		Person entity = repository.findById(person.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
-		entity.setFirstName(PersonVO.getFirstName());
-		entity.setLastName(PersonVO.getLastName());
-		entity.setAddress(PersonVO.getAddress());
-		entity.setGender(PersonVO.getGender());
+		entity.setFirstName(person.getFirstName());
+		entity.setLastName(person.getLastName());
+		entity.setAddress(person.getAddress());
+		entity.setGender(person.getGender());
 
-		return repository.save(entity);
+		return DozerMapper.parseObject(repository.save(entity), PersonVO.class);				
 	}
 
 	public void delete(Long id) {
-		PersonVO entity = repository.findById(id)
+		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
 		repository.delete(entity);

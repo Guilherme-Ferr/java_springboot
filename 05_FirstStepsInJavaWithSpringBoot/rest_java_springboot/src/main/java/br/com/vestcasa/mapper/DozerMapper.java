@@ -8,10 +8,12 @@ import com.github.dozermapper.core.Mapper;
 
 public class DozerMapper {
 
+	//Dozer é um model mapper pra fazer o parse json pra entidade mais facilmente
 	private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 	
+	//<O, D> esse metodo tem dois tipos, origem e destino, e retorna o destino
 	public static <O, D> D parseObject(O origin, Class<D> destination) {
-		return mapper.map(origin,  destination);		
+		return mapper.map(origin, destination);		
 	}	
 	
 	public static <O, D> List<D> parseListObjects(List<O> origin, Class<D> destination) {
