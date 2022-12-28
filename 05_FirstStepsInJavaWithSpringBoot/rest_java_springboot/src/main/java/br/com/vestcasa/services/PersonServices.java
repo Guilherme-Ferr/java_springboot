@@ -34,7 +34,6 @@ public class PersonServices {
 	public PersonVO update(PersonVO person) {
 		Person entity = repository.findById(person.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
@@ -46,7 +45,6 @@ public class PersonServices {
 	public void delete(Long id) {
 		Person entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-
 		repository.delete(entity);
 	}
 }
